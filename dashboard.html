@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="images/trees/sakura.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusGrow - Study Timer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="nav-logo"><i class="fas fa-seedling"></i></span>
+                <span class="nav-title">FocusGrow</span>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link active">
+                    <i class="fas fa-clock"></i>
+                    <span>Timer</span>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stats</span>
+                </a>
+                <a href="garden.html" class="nav-link">
+                    <i class="fas fa-tree"></i>
+                    <span>Garden</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container game-container">
+            <!-- Level & XP Bar -->
+            <div class="level-section">
+                <div class="level-info">
+                    <div class="level-badge">
+                        <i class="fas fa-star"></i>
+                        <span id="currentLevel">1</span>
+                    </div>
+                    <div class="level-details">
+                        <span class="level-title">Level <span id="levelNum">1</span> - Seedling</span>
+                        <div class="xp-bar">
+                            <div class="xp-fill" id="xpFill" style="width: 0%"></div>
+                        </div>
+                        <span class="xp-text"><span id="currentXP">0</span> / <span id="nextLevelXP">100</span> XP</span>
+                    </div>
+                </div>
+                <div class="coins-display">
+                    <i class="fas fa-coins"></i>
+                    <span id="coinsCount">0</span>
+                </div>
+            </div>
+
+            <!-- Timer Section -->
+            <div class="timer-section animate__animated animate__fadeIn">
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" viewBox="0 0 260 260">
+                        <defs>
+                            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#10b981"/>
+                                <stop offset="50%" style="stop-color:#34d399"/>
+                                <stop offset="100%" style="stop-color:#6ee7b7"/>
+                            </linearGradient>
+                        </defs>
+                        <circle class="progress-ring-bg" cx="130" cy="130" r="115" />
+                        <circle class="progress-ring-fill" id="progressRing" cx="130" cy="130" r="115" stroke="url(#progressGradient)" />
+                    </svg>
+                    <div class="timer-center">
+                        <div class="timer-display animate__animated" id="timerDisplay">25:00</div>
+                        <div class="timer-type" id="timerType">
+                            <i class="fas fa-book-open"></i>
+                            <span>Study Session</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Animation Area -->
+            <div class="animation-area animate__animated animate__fadeInUp" id="animationArea">
+                <!-- Tree Growing Animation -->
+                <div class="tree-container" id="treeContainer">
+                    <div class="ground"></div>
+                    <div class="tree" id="tree">
+                        <!-- Seed Stage - Pixel Art SVG -->
+                        <div class="tree-stage stage-seed" id="treeSeed">
+                            <svg class="pixel-plant" width="60" height="60" viewBox="0 0 24 24">
+                                <rect x="10" y="18" width="4" height="2" fill="#8B4513"/>
+                                <rect x="10" y="16" width="4" height="2" fill="#10b981"/>
+                                <rect x="8" y="14" width="2" height="2" fill="#10b981"/>
+                                <rect x="14" y="14" width="2" height="2" fill="#10b981"/>
+                                <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/>
+                            </svg>
+                        </div>
+                        
+                        <!-- Sprout Stage - Pixel Art SVG -->
+                        <div class="tree-stage stage-sprout hidden" id="treeSprout">
+                            <svg class="pixel-plant" width="70" height="80" viewBox="0 0 28 32">
+                                <rect x="12" y="24" width="4" height="8" fill="#8B4513"/>
+                                <rect x="12" y="20" width="4" height="4" fill="#059669"/>
+                                <rect x="10" y="18" width="2" height="2" fill="#10b981"/>
+                                <rect x="16" y="18" width="2" height="2" fill="#10b981"/>
+                                <rect x="8" y="16" width="2" height="2" fill="#34d399"/>
+                                <rect x="18" y="16" width="2" height="2" fill="#34d399"/>
+                                <rect x="10" y="14" width="2" height="2" fill="#34d399"/>
+                                <rect x="16" y="14" width="2" height="2" fill="#34d399"/>
+                                <rect x="12" y="12" width="4" height="2" fill="#10b981"/>
+                                <animateTransform attributeName="transform" type="rotate" from="0 14 16" to="3 14 16" dur="2s" repeatCount="indefinite"/>
+                                <animateTransform attributeName="transform" type="rotate" from="3 14 16" to="-3 14 16" dur="2s" begin="2s" repeatCount="indefinite"/>
+                            </svg>
+                        </div>
+                        
+                        <!-- Small Tree Stage - Pixel Art SVG -->
+                        <div class="tree-stage stage-small hidden" id="treeSmall">
+                            <svg class="pixel-plant" width="90" height="100" viewBox="0 0 36 40">
+                                <rect x="16" y="28" width="4" height="12" fill="#78350f"/>
+                                <rect x="14" y="26" width="8" height="2" fill="#92400e"/>
+                                <rect x="10" y="22" width="16" height="4" fill="#10b981"/>
+                                <rect x="8" y="18" width="20" height="4" fill="#059669"/>
+                                <rect x="12" y="14" width="12" height="4" fill="#34d399"/>
+                                <rect x="14" y="10" width="8" height="4" fill="#10b981"/>
+                                <rect x="10" y="24" width="2" height="2" fill="#34d399"/>
+                                <rect x="24" y="24" width="2" height="2" fill="#34d399"/>
+                                <rect x="8" y="20" width="2" height="2" fill="#6ee7b7"/>
+                                <rect x="26" y="20" width="2" height="2" fill="#6ee7b7"/>
+                                <animateTransform attributeName="transform" type="rotate" from="0 18 20" to="2 18 20" dur="3s" repeatCount="indefinite"/>
+                                <animateTransform attributeName="transform" type="rotate" from="2 18 20" to="-2 18 20" dur="3s" begin="3s" repeatCount="indefinite"/>
+                            </svg>
+                        </div>
+                        
+                        <!-- Full Tree Stage - Pixel Art SVG -->
+                        <div class="tree-stage stage-full hidden" id="treeFull">
+                            <svg class="pixel-plant" width="110" height="120" viewBox="0 0 44 48">
+                                <!-- Trunk -->
+                                <rect x="18" y="32" width="8" height="16" fill="#78350f"/>
+                                <rect x="20" y="30" width="4" height="2" fill="#92400e"/>
+                                <rect x="16" y="34" width="2" height="4" fill="#92400e"/>
+                                <rect x="26" y="36" width="2" height="4" fill="#92400e"/>
+                                
+                                <!-- Crown - Bottom layer -->
+                                <rect x="10" y="26" width="24" height="4" fill="#059669"/>
+                                <rect x="8" y="22" width="28" height="4" fill="#10b981"/>
+                                
+                                <!-- Crown - Middle layer -->
+                                <rect x="12" y="18" width="20" height="4" fill="#10b981"/>
+                                <rect x="10" y="14" width="24" height="4" fill="#34d399"/>
+                                
+                                <!-- Crown - Top layer -->
+                                <rect x="14" y="10" width="16" height="4" fill="#34d399"/>
+                                <rect x="16" y="6" width="12" height="4" fill="#6ee7b7"/>
+                                <rect x="18" y="2" width="8" height="4" fill="#6ee7b7"/>
+                                
+                                <!-- Fruits/Apples -->
+                                <rect x="12" y="20" width="2" height="2" fill="#ef4444"/>
+                                <rect x="30" y="20" width="2" height="2" fill="#ef4444"/>
+                                <rect x="20" y="16" width="2" height="2" fill="#ef4444"/>
+                                <rect x="14" y="12" width="2" height="2" fill="#fbbf24"/>
+                                <rect x="28" y="12" width="2" height="2" fill="#fbbf24"/>
+                                
+                                <!-- Leaves accent -->
+                                <rect x="6" y="24" width="2" height="2" fill="#6ee7b7"/>
+                                <rect x="36" y="24" width="2" height="2" fill="#6ee7b7"/>
+                                <rect x="8" y="16" width="2" height="2" fill="#86efac"/>
+                                <rect x="34" y="16" width="2" height="2" fill="#86efac"/>
+                                
+                                <animateTransform attributeName="transform" type="rotate" from="0 22 24" to="1.5 22 24" dur="4s" repeatCount="indefinite"/>
+                                <animateTransform attributeName="transform" type="rotate" from="1.5 22 24" to="-1.5 22 24" dur="4s" begin="4s" repeatCount="indefinite"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivation Quote -->
+            <div class="quote-section" id="quoteSection">
+                <i class="fas fa-quote-left"></i>
+                <span id="motivationQuote">Plant the seed of focus, grow the tree of success.</span>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="controls">
+                <button class="btn btn-glow btn-start" id="startBtn">
+                    <i class="fas fa-play"></i>
+                    <span>Start</span>
+                </button>
+                <button class="btn btn-secondary" id="pauseBtn" disabled>
+                    <i class="fas fa-pause"></i>
+                    <span>Pause</span>
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+            </div>
+
+            <!-- Mode Selection -->
+            <div class="mode-selection">
+                <button class="mode-card active" id="studyModeBtn">
+                    <div class="mode-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="mode-info">
+                        <span class="mode-name">Focus</span>
+                        <span class="mode-time">25 min</span>
+                    </div>
+                </button>
+                <button class="mode-card" id="shortBreakBtn">
+                    <div class="mode-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <div class="mode-info">
+                        <span class="mode-name">Short Break</span>
+                        <span class="mode-time">5 min</span>
+                    </div>
+                </button>
+                <button class="mode-card" id="longBreakBtn">
+                    <div class="mode-icon">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                    <div class="mode-info">
+                        <span class="mode-name">Long Break</span>
+                        <span class="mode-time">15 min</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="quick-stat">
+                    <i class="fas fa-fire"></i>
+                    <div class="quick-stat-info">
+                        <span class="quick-stat-value" id="todaySessions">0</span>
+                        <span class="quick-stat-label">Today</span>
+                    </div>
+                </div>
+                <div class="quick-stat">
+                    <i class="fas fa-tree"></i>
+                    <div class="quick-stat-info">
+                        <span class="quick-stat-value" id="treesGrown">0</span>
+                        <span class="quick-stat-label">Trees</span>
+                    </div>
+                </div>
+                <div class="quick-stat">
+                    <i class="fas fa-clock"></i>
+                    <div class="quick-stat-info">
+                        <span class="quick-stat-value" id="totalHours">0h</span>
+                        <span class="quick-stat-label">Total</span>
+                    </div>
+                </div>
+                <div class="quick-stat">
+                    <i class="fas fa-calendar-check"></i>
+                    <div class="quick-stat-info">
+                        <span class="quick-stat-value" id="streakDays">0</span>
+                        <span class="quick-stat-label">Streak</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Achievement Toast -->
+    <div class="achievement-toast hidden" id="achievementToast">
+        <div class="achievement-icon">
+            <i class="fas fa-trophy"></i>
+        </div>
+        <div class="achievement-info">
+            <span class="achievement-title">Achievement Unlocked!</span>
+            <span class="achievement-name" id="achievementName">First Tree</span>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="bottom-nav-link active">
+            <i class="fas fa-clock"></i>
+            <span class="bottom-nav-label">Timer</span>
+        </a>
+        <a href="analytics.html" class="bottom-nav-link">
+            <i class="fas fa-chart-line"></i>
+            <span class="bottom-nav-label">Stats</span>
+        </a>
+        <a href="garden.html" class="bottom-nav-link">
+            <i class="fas fa-tree"></i>
+            <span class="bottom-nav-label">Garden</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-link">
+            <i class="fas fa-cog"></i>
+            <span class="bottom-nav-label">Settings</span>
+        </a>
+    </nav>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

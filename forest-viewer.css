@@ -1,0 +1,295 @@
+/* Forest Mockup Display */
+.forest-view {
+    background: linear-gradient(180deg, 
+        #87CEEB 0%,      /* Sky blue top */
+        #98D8AA 30%,     /* Soft green */
+        #7BC67B 60%,     /* Meadow green */
+        #5DB85D 100%     /* Forest green bottom */
+    );
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 
+        0 10px 40px rgba(93, 184, 93, 0.2),
+        inset 0 0 60px rgba(255, 255, 255, 0.1);
+}
+
+.forest-image-container {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    line-height: 0; /* Remove extra space below image */
+}
+
+.forest-image-container:hover {
+    transform: scale(1.01);
+}
+
+.forest-image-container::after {
+    content: '🔍 Click to explore';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(52, 211, 153, 0.9));
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    z-index: 10;
+}
+
+.forest-image-container:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.forest-mockup {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    border-radius: 16px;
+}
+
+.forest-tree-count {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #10b981, #34d399);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.forest-tree-count::before {
+    content: '🌲';
+}
+
+.empty-forest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: #4ade80;
+    background: linear-gradient(180deg, 
+        rgba(135, 206, 235, 0.3) 0%,
+        rgba(152, 216, 170, 0.3) 100%
+    );
+    border-radius: 16px;
+}
+
+.empty-forest i {
+    font-size: 56px;
+    margin-bottom: 15px;
+    color: #34d399;
+    animation: gentleBounce 2s ease-in-out infinite;
+}
+
+@keyframes gentleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Plant Animation */
+.plant-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 56px;
+    font-weight: bold;
+    color: #4ade80;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    text-shadow: 
+        0 0 20px rgba(74, 222, 128, 0.6),
+        0 0 40px rgba(74, 222, 128, 0.4),
+        0 4px 30px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(16, 185, 129, 0.1));
+    padding: 20px 40px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.plant-animation.show {
+    animation: plantBounce 1s ease forwards;
+}
+
+@keyframes plantBounce {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    30% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.3);
+    }
+    60% {
+        transform: translate(-50%, -80%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -150%) scale(0.8);
+    }
+}
+
+/* Forest Viewer Modal */
+.forest-viewer-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.forest-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.forest-viewer-wrapper {
+    width: 90vw;
+    height: 80vh;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: grab;
+    background: linear-gradient(180deg, 
+        #87CEEB 0%,      /* Sky blue */
+        #98D8AA 40%,     /* Soft green */
+        #7BC67B 70%,     /* Meadow */
+        #5DB85D 100%     /* Forest floor */
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        inset 0 0 100px rgba(255, 255, 255, 0.1);
+}
+
+.forest-viewer-wrapper:active {
+    cursor: grabbing;
+}
+
+.forest-viewer-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.1s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.forest-viewer-controls {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.viewer-btn {
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.viewer-btn:hover {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    transform: scale(1.15);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+}
+
+.viewer-hint {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    margin-top: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+}
+
+@media (max-width: 768px) {
+    .forest-viewer-wrapper {
+        width: 95vw;
+        height: 70vh;
+    }
+    
+    .viewer-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+    }
+}
+
+/* Forest Viewer Modal Background */
+#forestViewerModal .modal-overlay {
+    background: linear-gradient(180deg, 
+        rgba(135, 206, 235, 0.95) 0%,
+        rgba(152, 216, 170, 0.95) 50%,
+        rgba(93, 184, 93, 0.95) 100%
+    );
+    backdrop-filter: blur(10px);
+}
+
+/* Decorative elements for empty state */
+.empty-forest::before {
+    content: '☁️';
+    position: absolute;
+    top: 20px;
+    left: 30%;
+    font-size: 30px;
+    animation: floatCloud 6s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+.empty-forest::after {
+    content: '☁️';
+    position: absolute;
+    top: 30px;
+    right: 25%;
+    font-size: 24px;
+    animation: floatCloud 8s ease-in-out infinite reverse;
+    opacity: 0.5;
+}
+
+@keyframes floatCloud {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(20px); }
+}

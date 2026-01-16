@@ -1,0 +1,6 @@
+# FocusGrow - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+flask>=2.3.0           # Web framework for API
+flask-cors>=4.0.0      # Cross-origin resource sharing
+plyer>=2.1.0          # Desktop notifications

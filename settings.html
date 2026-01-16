@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="images/trees/sakura.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusGrow - Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="confirm-dialog.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="nav-logo"><i class="fas fa-seedling"></i></span>
+                <span class="nav-title">FocusGrow</span>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Timer</span>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stats</span>
+                </a>
+                <a href="garden.html" class="nav-link">
+                    <i class="fas fa-tree"></i>
+                    <span>Garden</span>
+                </a>
+                <a href="settings.html" class="nav-link active">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">⚙️ Settings</h1>
+                <p class="page-subtitle">Customize your study experience</p>
+            </div>
+
+            <!-- Settings Sections -->
+            <div class="settings-section">
+                <h3 class="settings-heading">Timer Settings</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Study Duration</div>
+                        <div class="setting-description">Length of study sessions</div>
+                    </div>
+                    <select class="setting-select" id="studyDuration">
+                        <option value="5">5 seconds (Test)</option>
+                        <option value="1500">25 minutes</option>
+                        <option value="1800">30 minutes</option>
+                        <option value="2700">45 minutes</option>
+                        <option value="3600">60 minutes</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Break Duration</div>
+                        <div class="setting-description">Length of break sessions</div>
+                    </div>
+                    <select class="setting-select" id="breakDuration">
+                        <option value="5">5 seconds (Test)</option>
+                        <option value="300">5 minutes</option>
+                        <option value="600">10 minutes</option>
+                        <option value="900">15 minutes</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Auto-start Breaks</div>
+                        <div class="setting-description">Automatically start breaks after study sessions</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoStartBreaks">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3 class="settings-heading">Notifications</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Sound Notifications</div>
+                        <div class="setting-description">Play sound when timer completes</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="soundNotifications" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Browser Notifications</div>
+                        <div class="setting-description">Show desktop notifications</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="browserNotifications">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3 class="settings-heading">Account</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Clear All Data</div>
+                        <div class="setting-description">Reset statistics and settings</div>
+                    </div>
+                    <button class="btn btn-danger" id="clearDataBtn">Clear Data</button>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Logout</div>
+                        <div class="setting-description">Sign out of your account</div>
+                    </div>
+                    <button class="btn btn-secondary" id="logoutSettingsBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-footer">
+                <button class="btn btn-primary" id="saveSettingsBtn">Save Changes</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="bottom-nav-link">
+            <i class="fas fa-clock"></i>
+            <span class="bottom-nav-label">Timer</span>
+        </a>
+        <a href="analytics.html" class="bottom-nav-link">
+            <i class="fas fa-chart-line"></i>
+            <span class="bottom-nav-label">Stats</span>
+        </a>
+        <a href="garden.html" class="bottom-nav-link">
+            <i class="fas fa-tree"></i>
+            <span class="bottom-nav-label">Garden</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-link active">
+            <i class="fas fa-cog"></i>
+            <span class="bottom-nav-label">Settings</span>
+        </a>
+    </nav>
+
+    <script src="confirm-dialog.js"></script>
+    <script src="settings.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

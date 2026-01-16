@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="images/trees/sakura.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusGrow - My Garden</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="messages.css">
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="garden-buttons.css">
+    <link rel="stylesheet" href="forest-viewer.css">
+    <link rel="stylesheet" href="confirm-dialog.css">
+</head>
+<body>
+    <!-- Floating Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="nav-logo"><i class="fas fa-seedling"></i></span>
+                <span class="nav-title">FocusGrow</span>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Timer</span>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stats</span>
+                </a>
+                <a href="garden.html" class="nav-link active">
+                    <i class="fas fa-tree"></i>
+                    <span>Garden</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title"><i class="fas fa-tree"></i> My Garden</h1>
+                    <p class="page-subtitle">Your forest of focus and productivity</p>
+                </div>
+                <div class="header-stats">
+                    <div class="header-stat-item">
+                        <i class="fas fa-coins"></i>
+                        <span id="coinsDisplay">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Garden Stats -->
+            <div class="garden-stats">
+                <div class="garden-stat-card">
+                    <div class="garden-stat-icon trees">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <div class="garden-stat-value" id="totalTrees">0</div>
+                    <div class="garden-stat-label">Trees Grown</div>
+                </div>
+                <div class="garden-stat-card">
+                    <div class="garden-stat-icon fruits">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <div class="garden-stat-value" id="totalFruits">0</div>
+                    <div class="garden-stat-label">Fruits Collected</div>
+                </div>
+                <div class="garden-stat-card">
+                    <div class="garden-stat-icon species">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="garden-stat-value" id="treeSpecies">1</div>
+                    <div class="garden-stat-label">Species Unlocked</div>
+                </div>
+            </div>
+
+            <!-- Tree Preview Section -->
+            <div class="tree-shop">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fas fa-store"></i> Tree Collection</h2>
+                    <button class="view-all-btn" id="viewAllBtn">
+                        <span>View All</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <p class="section-subtitle">Select and purchase different tree species</p>
+                <div class="tree-grid" id="treePreview">
+                    <!-- First 6 trees will be shown here -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="garden-actions">
+                <button class="garden-btn secondary" id="growForestBtn">
+                    <i class="fas fa-seedling"></i>
+                    <span>Plant Tree</span>
+                </button>
+            </div>
+            
+            <!-- Tree Slots Info -->
+            <div class="tree-slots-info" id="treeSlotsInfo">
+                <div class="slots-label">🌱 Tree Slots:</div>
+                <div class="slots-progress">
+                    <span id="treesPlanted">0</span> / <span id="maxTrees">1</span>
+                </div>
+                <div class="slots-hint">Level up to unlock more slots!</div>
+            </div>
+
+            <!-- My Forest -->
+            <div class="my-forest">
+                <h2 class="section-title"><i class="fas fa-tree"></i> My Forest</h2>
+                <div class="forest-view" id="forestView">
+                    <div class="forest-image-container" id="forestImageContainer">
+                        <img src="images/mockup3.png" alt="My Forest" id="forestImage" class="forest-mockup">
+                        <div class="forest-tree-count" id="forestTreeCount">0 Trees</div>
+                    </div>
+                    <div class="empty-forest" id="emptyForest">
+                        <i class="fas fa-seedling"></i>
+                        <p>Complete study sessions to grow your forest!</p>
+                    </div>
+                </div>
+                <div class="plant-animation" id="plantAnimation">+1 🌳</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Forest Viewer Modal -->
+    <div class="modal" id="forestViewerModal">
+        <div class="modal-overlay" id="forestModalOverlay"></div>
+        <div class="forest-viewer-content">
+            <button class="modal-close forest-close" id="closeForestViewer">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="forest-viewer-wrapper" id="forestViewerWrapper">
+                <img src="images/mockup3.png" alt="Forest View" id="forestViewerImage" class="forest-viewer-img">
+            </div>
+            <div class="forest-viewer-controls">
+                <button class="viewer-btn" id="zoomOutBtn"><i class="fas fa-search-minus"></i></button>
+                <button class="viewer-btn" id="zoomInBtn"><i class="fas fa-search-plus"></i></button>
+                <button class="viewer-btn" id="resetViewBtn"><i class="fas fa-expand"></i></button>
+            </div>
+            <p class="viewer-hint">Drag to pan • Scroll to zoom</p>
+        </div>
+    </div>
+
+    <!-- Tree Shop Modal -->
+    <div class="modal" id="shopModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-store"></i> Tree Shop</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-subtitle">Purchase and select different tree species for your timer</p>
+                <div class="tree-grid" id="treeShop">
+                    <!-- Trees will be dynamically generated -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="bottom-nav-link">
+            <i class="fas fa-clock"></i>
+            <span class="bottom-nav-label">Timer</span>
+        </a>
+        <a href="analytics.html" class="bottom-nav-link">
+            <i class="fas fa-chart-line"></i>
+            <span class="bottom-nav-label">Stats</span>
+        </a>
+        <a href="garden.html" class="bottom-nav-link active">
+            <i class="fas fa-tree"></i>
+            <span class="bottom-nav-label">Garden</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-link">
+            <i class="fas fa-cog"></i>
+            <span class="bottom-nav-label">Settings</span>
+        </a>
+    </nav>
+
+    <script src="confirm-dialog.js"></script>
+    <script src="garden.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

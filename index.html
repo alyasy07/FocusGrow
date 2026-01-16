@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="images/trees/sakura.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusGrow - Redirecting...</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            background: #0f172a;
+            color: #10b981;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: system-ui, sans-serif;
+            margin: 0;
+        }
+        .loader {
+            font-size: 48px;
+            animation: pulse 1s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        p { margin-top: 20px; }
+    </style>
+    <script>
+        // Redirect to login page or dashboard if logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn === 'true') {
+            window.location.href = 'dashboard.html';
+        } else {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="loader"><i class="fas fa-seedling"></i></div>
+    <p>Loading FocusGrow...</p>
+</body>
+</html>

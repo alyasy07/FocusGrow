@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="images/trees/sakura.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Study Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-header">
+            <div class="app-logo">📚</div>
+            <h1 class="login-title">Create Account</h1>
+            <p class="login-subtitle">Start your study journey</p>
+        </div>
+
+        <form class="login-form" id="registerForm">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" class="form-input" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newUsername">Username</label>
+                <input type="text" id="newUsername" class="form-input" placeholder="Choose a username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newPassword">Password</label>
+                <input type="password" id="newPassword" class="form-input" placeholder="Create a password" required>
+            </div>
+
+            <button type="submit" class="btn btn-login">Create Account</button>
+
+            <div class="form-footer">
+                <span>Already have an account?</span>
+                <a href="login.html" class="link">Sign in</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+</html>
