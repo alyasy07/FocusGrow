@@ -875,23 +875,44 @@ function initAudioPlayer() {
     let showingControls = false;
     
     // Set initial volume
-    backgroundAudio.volume = volumeSlider.value / 100;
+    backgroundAudio.volume = volumeSlider ? volumeSlider.value / 100 : 0.5;
+    
+    // Preload audio
+    backgroundAudio.load();
+    
+    // Audio event listeners for debugging
+    backgroundAudio.addEventListener('canplay', () => {
+        console.log('Audio can play - ready to start');
+    });
+    
+    backgroundAudio.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        console.error('Audio error code:', backgroundAudio.error?.code);
+        console.error('Audio error message:', backgroundAudio.error?.message);
+    });
+    
+    backgroundAudio.addEventListener('loadeddata', () => {
+        console.log('Audio loaded successfully');
+    });
     
     // Toggle play/pause
-    audioToggle.addEventListener('click', () => {
+    audioToggle.addEventListener('click', async () => {
         if (isPlaying) {
             backgroundAudio.pause();
             audioToggle.classList.remove('playing');
             audioToggle.innerHTML = '<i class="fas fa-music"></i>';
             isPlaying = false;
         } else {
-            backgroundAudio.play().catch(err => {
-                console.log('Audio playback failed:', err);
-                showAchievement('Click again to start music 🎵');
-            });
-            audioToggle.classList.add('playing');
-            audioToggle.innerHTML = '<i class="fas fa-pause"></i>';
-            isPlaying = true;
+            try {
+                await backgroundAudio.play();
+                audioToggle.classList.add('playing');
+                audioToggle.innerHTML = '<i class="fas fa-pause"></i>';
+                isPlaying = true;
+                console.log('Audio playing successfully');
+            } catch (err) {
+                console.error('Audio playback failed:', err);
+                showAchievement('Unable to play audio - check console 🎵');
+            }
         }
     });
     
@@ -912,6 +933,16 @@ function initAudioPlayer() {
     });
     
     // Volume control
-    volumeSlider.addEventListener('input', (e) => {
-        backgroundAudio.volume = e.target.value / 100;
-    });
+    if (volumeSlider) {
+        volumeSlider.addEventListener('input', (e) => {
+            backgroundAudio.volume = e.target.value / 100;
+        });
+    }
+}
+
+// Initialize the app when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
