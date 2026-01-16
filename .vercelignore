@@ -1,0 +1,43 @@
+# Vercel Ignore File
+# Files and directories to exclude from deployment
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Local development files
+server.py
+notifications_api.py
+run.bat
+run_notifications.bat
+install.bat
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local database or exports (if any)
+*.db
+*.sqlite
+exports/
+
+# Git
+.git/
+.gitignore

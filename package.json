@@ -1,0 +1,12 @@
+{
+  "name": "focusgrow-timer",
+  "version": "1.0.0",
+  "description": "FocusGrow Study Timer - A productivity timer with gamification",
+  "scripts": {
+    "dev": "python server.py",
+    "vercel-build": "echo 'No build step required for static site'"
+  },
+  "keywords": ["timer", "productivity", "study", "focus"],
+  "author": "",
+  "license": "MIT"
+}
