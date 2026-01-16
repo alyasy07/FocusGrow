@@ -282,6 +282,20 @@
         </div>
     </div>
 
+    <!-- Floating Audio Player -->
+    <div class="floating-audio-player" id="audioPlayer">
+        <audio id="backgroundAudio" loop>
+            <source src="audio.mp3" type="audio/mpeg">
+        </audio>
+        <button class="audio-toggle" id="audioToggle">
+            <i class="fas fa-music"></i>
+        </button>
+        <div class="audio-controls" id="audioControls" style="display: none;">
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+            <span class="volume-icon"><i class="fas fa-volume-up"></i></span>
+        </div>
+    </div>
+
     <!-- Bottom Navigation (Mobile) -->
     <nav class="bottom-nav">
         <a href="dashboard.html" class="bottom-nav-link active">

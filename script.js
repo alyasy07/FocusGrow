@@ -857,11 +857,61 @@ function init() {
         localStorage.setItem('hasVisited', 'true');
         showAchievement('Welcome to FocusGrow! 🌱');
     }
+    
+    // Initialize audio player
+    initAudioPlayer();
 }
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
+// ====== Audio Player ======
+function initAudioPlayer() {
+    const audioToggle = document.getElementById('audioToggle');
+    const audioControls = document.getElementById('audioControls');
+    const backgroundAudio = document.getElementById('backgroundAudio');
+    const volumeSlider = document.getElementById('volumeSlider');
+    
+    if (!audioToggle || !backgroundAudio) return;
+    
+    let isPlaying = false;
+    let showingControls = false;
+    
+    // Set initial volume
+    backgroundAudio.volume = volumeSlider.value / 100;
+    
+    // Toggle play/pause
+    audioToggle.addEventListener('click', () => {
+        if (isPlaying) {
+            backgroundAudio.pause();
+            audioToggle.classList.remove('playing');
+            audioToggle.innerHTML = '<i class="fas fa-music"></i>';
+            isPlaying = false;
+        } else {
+            backgroundAudio.play().catch(err => {
+                console.log('Audio playback failed:', err);
+                showAchievement('Click again to start music 🎵');
+            });
+            audioToggle.classList.add('playing');
+            audioToggle.innerHTML = '<i class="fas fa-pause"></i>';
+            isPlaying = true;
+        }
+    });
+    
+    // Show/hide controls on hover
+    audioToggle.addEventListener('mouseenter', () => {
+        showingControls = true;
+        audioControls.style.display = 'flex';
+    });
+    
+    const audioPlayer = document.getElementById('audioPlayer');
+    audioPlayer.addEventListener('mouseleave', () => {
+        showingControls = false;
+        setTimeout(() => {
+            if (!showingControls) {
+                audioControls.style.display = 'none';
+            }
+        }, 300);
+    });
+    
+    // Volume control
+    volumeSlider.addEventListener('input', (e) => {
+        backgroundAudio.volume = e.target.value / 100;
+    });

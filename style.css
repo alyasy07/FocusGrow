@@ -2466,3 +2466,127 @@ body.login-page {
     filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));
     image-rendering: crisp-edges;
 }
+/* ====== Floating Audio Player ====== */
+.floating-audio-player {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.audio-toggle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(74, 222, 128, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.audio-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(74, 222, 128, 0.5);
+}
+
+.audio-toggle:active {
+    transform: scale(0.95);
+}
+
+.audio-toggle.playing {
+    animation: pulse-audio 1.5s infinite;
+}
+
+@keyframes pulse-audio {
+    0%, 100% {
+        box-shadow: 0 4px 20px rgba(74, 222, 128, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 30px rgba(74, 222, 128, 0.6);
+    }
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(30, 58, 95, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.volume-slider {
+    width: 100px;
+    height: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(74, 222, 128, 0.2);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    background: var(--primary-light);
+    transform: scale(1.2);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.volume-slider::-moz-range-thumb:hover {
+    background: var(--primary-light);
+    transform: scale(1.2);
+}
+
+.volume-icon {
+    color: var(--primary);
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .floating-audio-player {
+        bottom: 80px;
+        right: 15px;
+    }
+    
+    .audio-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    
+    .volume-slider {
+        width: 80px;
+    }
+}
